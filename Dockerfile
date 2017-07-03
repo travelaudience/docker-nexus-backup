@@ -18,8 +18,8 @@ ENV NEXUS_LOCAL_HOST_PORT "localhost:8081"
 ENV OFFLINE_REPOS "maven-central maven-public maven-releases maven-snapshots"
 
 # The name of the GCS bucket to which the resulting backups will be uploaded.
-ENV TARGET_BUCKET "gs://nexus-travelaudience-backup-35753"
 
+ENV TARGET_BUCKET "gs://nexus-backup"
 # The amount of time in seconds to wait between stopping repositories and starting the upload.
 ENV GRACE_PERIOD "60"
 
