@@ -150,6 +150,18 @@ then
     exit 1
 fi
 
+if [[ -f "${CLOUD_IAM_SERVICE_ACCOUNT_KEY_PATH}" ]];
+then
+    echo "==> Setting up authentication with the specified service account..."
+    gcloud auth activate-service-account --key-file "${CLOUD_IAM_SERVICE_ACCOUNT_KEY_PATH}" || \
+    {
+        echo "(!) Couldn't activate the specified service account."
+        exit 1
+    }
+fi
+
+echo "==> Monitoring '${TRIGGER_FILE}'..."
+
 inotifywait -e attrib,create --format "%f" -m -q "${NEXUS_BACKUP_DIRECTORY}" | while read -r FILE
 do
     if [[ "${FILE}" == "${TRIGGER_FILE}" ]];

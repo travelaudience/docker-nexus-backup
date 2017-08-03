@@ -2,6 +2,8 @@ FROM alpine:3.6
 
 LABEL maintainer devops@travelaudience.com
 
+# The path to the Cloud IAM service account to use when uploading backups.
+ENV CLOUD_IAM_SERVICE_ACCOUNT_KEY_PATH ""
 # The authorization header to use when calling the Nexus API.
 ENV NEXUS_AUTHORIZATION "Basic YWRtaW46YWRtaW4xMjMK"
 

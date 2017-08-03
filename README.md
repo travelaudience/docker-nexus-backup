@@ -31,6 +31,20 @@ docker run --detach \
            quay.io/travelaudience/docker-nexus-backup:1.0.0
 ```
 
+## Inside Google Container Engine
+
+Your Google Container Engine cluster **must be** created with Cloud Storage read-write
+permissions enabled (`https://www.googleapis.com/auth/devstorage.read_write` scope).
+
+## Outside Google Container Engine
+
+If you're running this image, or any other container image based on this,
+outside GKE you will need to create a [service account](https://cloud.google.com/iam/docs/service-accounts)
+with the "_Storage Object Creator_" and "_Storage Object Viewer_" permissions,
+download the newly furnished private key file in JSON format, mount it in the
+container and specify the mount path using the `CLOUD_IAM_SERVICE_ACCOUNT_KEY_PATH`
+environment variable.
+
 ## Environment Variables
 
 This image can be configured by means of environment variables. You will most
@@ -38,13 +52,14 @@ probably want to customize `NEXUS_AUTHORIZATION`, `NEXUS_LOCAL_HOST_PORT` and
 `TARGET_BUCKET` to suit your use case, while most other environment variables
 will require no changes.
 
-| Variable                 | Description                                                                                  | Default                                                     |
-|--------------------------|----------------------------------------------------------------------------------------------|-------------------------------------------------------------|
-| `NEXUS_AUTHORIZATION`    | The authorization header to use when calling the Nexus API.                                  | `Basic YWRtaW46YWRtaW4xMjMK`                                |
-| `NEXUS_BACKUP_DIRECTORY` | The directory to which the Nexus 'backup-2' task will produce its output.                    | `/nexus-data/backup`                                        |
-| `NEXUS_DATA_DIRECTORY`   | The Nexus data directory.                                                                    | `/nexus-data`                                               |
-| `NEXUS_LOCAL_HOST_PORT`  | The host and port at which Nexus can be reached.                                             | `localhost:8081`                                            |
-| `OFFLINE_REPOS`          | The names of the repositories must be taken down to achieve a consistent backup.             | `maven-central maven-public maven-releases maven-snapshots` |
-| `TARGET_BUCKET`          | The name of the GCS bucket to which the resulting backups will be uploaded.                  | `gs://nexus-backup`                                         |
-| `GRACE_PERIOD`           | The amount of time in seconds to wait between stopping repositories and starting the upload. | `60`                                                        |
-| `TRIGGER_FILE`           | The name of the file used to trigger the backup procedure.                                   | `.backup`                                                   |
+| Variable                             | Description                                                                                   | Default                                                     |
+|--------------------------------------|-----------------------------------------------------------------------------------------------|-------------------------------------------------------------|
+| `CLOUD_IAM_SERVICE_ACCOUNT_KEY_PATH` | (**Optional**) The path to a service account key file with which to authenticate against GCS. | (empty)                                                     |
+| `NEXUS_AUTHORIZATION`                | The authorization header to use when calling the Nexus API.                                   | `Basic YWRtaW46YWRtaW4xMjMK`                                |
+| `NEXUS_BACKUP_DIRECTORY`             | The directory to which the Nexus 'backup-2' task will produce its output.                     | `/nexus-data/backup`                                        |
+| `NEXUS_DATA_DIRECTORY`               | The Nexus data directory.                                                                     | `/nexus-data`                                               |
+| `NEXUS_LOCAL_HOST_PORT`              | The host and port at which Nexus can be reached.                                              | `localhost:8081`                                            |
+| `OFFLINE_REPOS`                      | The names of the repositories must be taken down to achieve a consistent backup.              | `maven-central maven-public maven-releases maven-snapshots` |
+| `TARGET_BUCKET`                      | The name of the GCS bucket to which the resulting backups will be uploaded.                   | `gs://nexus-backup`                                         |
+| `GRACE_PERIOD`                       | The amount of time in seconds to wait between stopping repositories and starting the upload.  | `60`                                                        |
+| `TRIGGER_FILE`                       | The name of the file used to trigger the backup procedure.                                    | `.backup`                                                   |
