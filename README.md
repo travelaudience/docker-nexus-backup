@@ -9,7 +9,7 @@ A container image for backing-up Sonatype Nexus Repository Manager data into GCP
 The simplest way to run the container is to assume the default configuration
 (check [below](#environment-variables) for the default configuration):
 
-```text
+```bash
 docker run --detach                                               \
            --name nexus-backup                                    \
            --volume /path/to/nexus-data:/nexus-data               \
@@ -21,7 +21,7 @@ You can change, for example, the repositories which to lock during backup and
 the target Google Cloud Storage bucket by specifing the correct values as
 environment variables:
 
-```text
+```bash
 docker run --detach \
            --env OFFLINE_REPOS="docker-hosted maven-central maven-public maven-releases maven-snapshots" \
            --env TARGET_BUCKET="gs://my-fancy-bucket/" \
