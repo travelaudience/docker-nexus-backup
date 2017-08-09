@@ -33,7 +33,7 @@ docker run --detach                                               \
            --name nexus-backup                                    \
            --volume /path/to/nexus-data:/nexus-data               \
            --volume /path/to/nexus-data-backup:/nexus-data/backup \
-           quay.io/travelaudience/docker-nexus-backup:1.1.0
+           quay.io/travelaudience/docker-nexus-backup:1.2.0
 ```
 
 You can change, for example, the repositories which to lock during backup and
@@ -47,7 +47,7 @@ docker run --detach \
            --name nexus-backup \
            --volume /path/to/nexus-data:/nexus-data \
            --volume /path/to/nexus-data-backup:/nexus-data/backup \
-           quay.io/travelaudience/docker-nexus-backup:1.1.0
+           quay.io/travelaudience/docker-nexus-backup:1.2.0
 ```
 
 ## Inside Google Container Engine
