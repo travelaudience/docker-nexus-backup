@@ -4,6 +4,25 @@ A container image for backing-up Sonatype Nexus Repository Manager data into GCP
 
 [![Docker Repository on Quay](https://quay.io/repository/travelaudience/docker-nexus-backup/status "Docker Repository on Quay")](https://quay.io/repository/travelaudience/docker-nexus-backup)
 
+## Introduction
+
+Nexus Repository Manager can be configured to back-up its internal database on
+a regular basis. However, this process does not take blob stores into account.
+Furthermore, the back-ups are persisted in the local disk alone, meaning if
+the disk is lost, the back-ups are lost too.
+
+This tool addresses these two shortcomings by backing-up the `default` blob
+store and then uploading everything to GCS, including the database back-up
+Nexus previously created. This procedure is automatically triggered by
+[`touching`](https://en.wikipedia.org/wiki/Touch_(Unix))ing
+`${NEXUS_BACKUP_DIRECTORY}/.backup`.
+
+When the back-up starts, a lock file is created so that no two backup processes
+run simultaneously. This lock file is removed automatically after a successful
+backup. A warning message is displayed whenever a lock file has been present for
+more than twelve hours (meaning a failed backup), and the lock file is removed
+so that further back-ups can be made.
+
 ## Run
 
 The simplest way to run the container is to assume the default configuration
