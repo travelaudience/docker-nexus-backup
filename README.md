@@ -81,4 +81,3 @@ will require no changes.
 | `OFFLINE_REPOS`                      | The names of the repositories must be taken down to achieve a consistent backup.              | `maven-central maven-public maven-releases maven-snapshots` |
 | `TARGET_BUCKET`                      | The name of the GCS bucket to which the resulting backups will be uploaded.                   | `gs://nexus-backup`                                         |
 | `GRACE_PERIOD`                       | The amount of time in seconds to wait between stopping repositories and starting the upload.  | `60`                                                        |
-| `TRIGGER_FILE`                       | The name of the file used to trigger the backup procedure.                                    | `.backup`                                                   |
