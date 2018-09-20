@@ -1,4 +1,5 @@
-FROM alpine:3.7
+FROM alpine:3.8
+# Image used will affectively be 3.8.1 with the security hotfix.
 
 LABEL maintainer devops@travelaudience.com
 
