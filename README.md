@@ -23,6 +23,10 @@ backup. A warning message is displayed whenever a lock file has been present for
 more than twelve hours (meaning a failed backup), and the lock file is removed
 so that further back-ups can be made.
 
+## Compatibility with Nexus
+
+Starting from version `1.4.0`, `docker-nexus-backup` is only compatible with **Nexus 3.8.0 and above**. Users requiring support for earlier versions of Nexus must use version `1.3.0`.
+
 ## Run
 
 The simplest way to run the container is to assume the default configuration
@@ -33,7 +37,7 @@ docker run --detach                                               \
            --name nexus-backup                                    \
            --volume /path/to/nexus-data:/nexus-data               \
            --volume /path/to/nexus-data-backup:/nexus-data/backup \
-           quay.io/travelaudience/docker-nexus-backup:1.3.0
+           quay.io/travelaudience/docker-nexus-backup:1.4.0
 ```
 
 You can change, for example, the repositories which to lock during backup and
@@ -47,7 +51,7 @@ docker run --detach \
            --name nexus-backup \
            --volume /path/to/nexus-data:/nexus-data \
            --volume /path/to/nexus-data-backup:/nexus-data/backup \
-           quay.io/travelaudience/docker-nexus-backup:1.3.0
+           quay.io/travelaudience/docker-nexus-backup:1.4.0
 ```
 
 ## Inside Google Container Engine

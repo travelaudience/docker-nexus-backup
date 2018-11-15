@@ -79,7 +79,7 @@ function ensure_groovy_script {
       -s \
       -w "${http_code}" \
       -X DELETE \
-      "${NEXUS_LOCAL_HOST_PORT}/service/siesta/rest/v1/script/${NAME}/"
+      "${NEXUS_LOCAL_HOST_PORT}/service/rest/v1/script/${NAME}/"
 
     # Install the script.
     curl -d "{\"name\":\"${NAME}\",\"type\":\"groovy\",\"content\":\"${BODY}\"}" \
@@ -88,7 +88,7 @@ function ensure_groovy_script {
       -s \
       -S \
       -X POST \
-      "${NEXUS_LOCAL_HOST_PORT}/service/siesta/rest/v1/script/"  
+      "${NEXUS_LOCAL_HOST_PORT}/service/rest/v1/script/"
 }
 
 function manage_repos { # Supported actions are 'start' and 'stop'.
@@ -101,7 +101,7 @@ function manage_repos { # Supported actions are 'start' and 'stop'.
             -H "Content-Type: text/plain" \
             -s \
             -X POST \
-            "${NEXUS_LOCAL_HOST_PORT}/service/siesta/rest/v1/script/${1}-repository/run" > /dev/null
+            "${NEXUS_LOCAL_HOST_PORT}/service/rest/v1/script/${1}-repository/run" > /dev/null
     done
 }
 
