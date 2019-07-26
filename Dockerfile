@@ -1,5 +1,4 @@
-FROM alpine:3.8
-# Image used will affectively be 3.8.1 with the security hotfix.
+FROM alpine:3.10
 
 LABEL maintainer devops@travelaudience.com
 
@@ -29,10 +28,10 @@ ENV GRACE_PERIOD "60"
 WORKDIR /tmp
 
 RUN apk add --no-cache --update bash ca-certificates curl inotify-tools python openssl \
- && wget -O google-cloud-sdk.tar.gz https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-158.0.0-linux-x86_64.tar.gz \
- && tar xzf google-cloud-sdk.tar.gz \
- && rm google-cloud-sdk.tar.gz \
- && ./google-cloud-sdk/install.sh --command-completion true --override-components gcloud gsutil --path-update true --quiet --rc-path /root/.bashrc --usage-reporting false
+    && wget -O google-cloud-sdk.tar.gz https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-255.0.0-linux-x86_64.tar.gz \
+    && tar xzf google-cloud-sdk.tar.gz \
+    && rm google-cloud-sdk.tar.gz \
+    && ./google-cloud-sdk/install.sh --command-completion true --override-components gcloud gsutil --path-update true --quiet --rc-path /root/.bashrc --usage-reporting false
 
 ADD docker-entrypoint.sh /docker-entrypoint.sh
 ADD /scripts/start-repository.groovy /scripts/start-repository.groovy
