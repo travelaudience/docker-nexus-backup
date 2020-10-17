@@ -35,8 +35,8 @@ function backup {
     sleep "${GRACE_PERIOD}"
 
     echo "==> Attempting to backup the 'default' blobstore."
-    tar c "${NEXUS_DATA_DIRECTORY}/blobs/default/" -f "${NEXUS_BACKUP_DIRECTORY}/blobstore.tar"
-    gsutil cp "${NEXUS_BACKUP_DIRECTORY}/blobstore.tar" "${TARGET_BUCKET}/${TIMESTAMP}/blobstore.tar"
+    tar c "${NEXUS_DATA_DIRECTORY}/blobs/default/" -f "${NEXUS_BACKUP_DIRECTORY}/blobstore.tar" \
+      && gsutil cp "${NEXUS_BACKUP_DIRECTORY}/blobstore.tar" "${TARGET_BUCKET}/${TIMESTAMP}/blobstore.tar"
 
     local EXIT_CODE_1=$?
 
@@ -95,7 +95,7 @@ function ensure_groovy_script {
 
 function manage_repos { # Supported actions are 'start' and 'stop'.
     local REPOS=($OFFLINE_REPOS)
-    
+
     for repo in "${REPOS[@]}";
     do
        curl -d "${repo}" \
